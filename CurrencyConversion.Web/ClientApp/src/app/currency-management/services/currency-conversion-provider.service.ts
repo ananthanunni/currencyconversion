@@ -4,6 +4,7 @@ import { UrlProviderService } from '../../app-core/services/url-provider.service
 import { WebRequestHandlerService } from '../../app-core/services/web-request-handler.service';
 import { ConversionRequest } from '../models/ConversionRequest';
 import { ConversionResponse } from '../models/ConversionResponse';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

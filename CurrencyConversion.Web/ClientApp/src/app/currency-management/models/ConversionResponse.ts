@@ -1,6 +1,7 @@
 export class ConversionResponse {
   status: ConversionStatus;
   amount: number;
+  dateUpdated: Date;
 }
 
 export enum ConversionStatus {

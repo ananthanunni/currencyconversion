@@ -15,6 +15,7 @@ namespace CurrencyConversion.Web.Controllers
             _currencyConversionService = currencyConversionService;
         }
 
+        // TODO: Deliberately calculating at the server side rather than bring the params to the client and calculating in browser in order to demostrate HTTP POST
         [HttpPost]
         [Route("")]
         public async Task<ActionResult<ConversionResponse>> Convert([FromBody]ConversionRequest request)

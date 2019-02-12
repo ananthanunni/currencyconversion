@@ -32,7 +32,8 @@ namespace CurrencyConversion.Services.CurrencyManagement
             return new ConversionResponse
             {
                 Status = ConversionStatus.Success,
-                Amount = Calculate(conversionRate, request)
+                Amount = Calculate(conversionRate, request),
+                DateUpdated = conversionRate.Date
             };
         }
 

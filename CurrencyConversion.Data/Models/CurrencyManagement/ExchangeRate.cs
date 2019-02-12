@@ -7,7 +7,7 @@ namespace CurrencyConversion.Data.Models.CurrencyManagement
     public class ExchangeRate : BaseEntity, IEntity
     {
         public decimal Rate { get; set; }
-        public DateTime Date;
+        public DateTime Date { get; set; }
 
         public long FromId { get; set; }
         public virtual Currency From { get; set; }

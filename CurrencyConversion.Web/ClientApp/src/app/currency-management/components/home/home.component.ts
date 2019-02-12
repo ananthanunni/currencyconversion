@@ -3,7 +3,7 @@ import { CurrencyProviderService } from '../../services/currency-provider.servic
 import { Currency } from '../../models/Currency';
 import { CurrencyConversionProviderService } from '../../services/currency-conversion-provider.service';
 import { ConversionRequest } from '../../models/ConversionRequest';
-import { ConversionResponse } from '../../models/ConversionResponse';
+import { ConversionResponse, ConversionStatus } from '../../models/ConversionResponse';
 
 @Component({
   selector: 'currency-management-home',
@@ -11,7 +11,7 @@ import { ConversionResponse } from '../../models/ConversionResponse';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  currencyCollection: Currency[]=[];
+  currencyCollection: Currency[] = [];
   isLoading = true;
   isCalculating = false;
 
@@ -23,25 +23,26 @@ export class HomeComponent implements OnInit {
 
   currentConversion: Conversion = null;
 
-  constructor(private currencyProvider: CurrencyProviderService, private currencyConvertor:CurrencyConversionProviderService) { }
+  constructor(private currencyProvider: CurrencyProviderService, private currencyConvertor: CurrencyConversionProviderService) { }
 
   ngOnInit() {
     this.reset();
   }
 
   convert() {
-    this.isCalculating = true;
-
     let request: ConversionRequest = { amount: this.fromAmount, fromCurrency: this.fromCurrency.id, toCurrency: this.toCurrency.id };
 
-    this.currencyConvertor.convert(this.fromCurrency, this.toCurrency, this.fromAmount)
-      .subscribe(result => {        
-        this.conversions.push({
-          request: request,
-          response: result
-        });
+    if (request.fromCurrency === request.toCurrency) {
+      this.saveConversion(request, { amount: request.amount, status: ConversionStatus.Success, dateUpdated: null });
+      return;
+    }
 
-        this.currentConversion = this.conversions[this.conversions.length - 1];
+    this.isCalculating = true;
+
+    this.currencyConvertor.convert(this.fromCurrency, this.toCurrency, this.fromAmount)
+      .subscribe(result => {
+        this.saveConversion(request, result);
+        this.isCalculating = false;
       });
   }
 
@@ -51,8 +52,24 @@ export class HomeComponent implements OnInit {
     this.currencyProvider.getCurrencies()
       .subscribe(currencies => {
         this.currencyCollection = currencies;
+
+        if (this.currencyCollection.length > 0)
+          this.fromCurrency = this.currencyCollection[0];
+
+        if (this.currencyCollection.length > 1)
+          this.toCurrency = this.currencyCollection[1];
+
         this.isLoading = false;
       });
+  }
+
+  private saveConversion(request: ConversionRequest, response: ConversionResponse) {
+    this.conversions.splice(0, 0, {
+      request: request,
+      response: response
+    });
+
+    this.currentConversion = this.conversions[0];
   }
 }
 

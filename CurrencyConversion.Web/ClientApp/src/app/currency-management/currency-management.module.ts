@@ -7,9 +7,10 @@ import { AppCoreModule } from '../app-core/app-core.module';
 import { AppMaterialModule } from '../app-material.module';
 import { AppCoreUiModule } from '../app-core-ui/app-core-ui.module';
 import { FormsModule } from '@angular/forms';
+import { ConversionResultDisplayComponent } from './components/conversion-result-display/conversion-result-display.component';
 
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [HomeComponent, ConversionResultDisplayComponent],
   imports: [
     CommonModule,
     FormsModule,

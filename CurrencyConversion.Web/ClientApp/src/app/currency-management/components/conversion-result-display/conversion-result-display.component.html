@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-sm-12">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Conversion Result</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div *ngIf="isSuccess; else errorDisplay">
+          <ng-container *ngTemplateOutlet="conversionData"></ng-container>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<ng-template #conversionData>
+  <h1>
+    <mat-icon color="primary">check_circle</mat-icon>
+  </h1>
+  <h1 class="text-right" *ngIf="isSuccess; else errorDisplay">
+    <small>{{currencyLabel}}</small>
+    {{formatCurrency(model.response.amount)}}
+  </h1>
+</ng-template>
+
+<ng-template #errorDisplay>
+  <h3 class="text-warning">
+    {{errorMessage}}
+  </h3>
+</ng-template>
+
