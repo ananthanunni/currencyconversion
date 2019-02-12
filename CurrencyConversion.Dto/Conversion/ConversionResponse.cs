@@ -8,19 +8,23 @@ namespace CurrencyConversion.Dto.Conversion
         public decimal Amount { get; set; }
         public DateTime DateUpdated { get; set; }
 
-        public static ConversionResponse ExchangeRateUnavailable()
+        public static ConversionResponse CreateErrorResponse(ConversionStatus status)
         {
             return new ConversionResponse
             {
-                Status = ConversionStatus.RateNotAvailable
+                Status = status
             };
         }
     }
 
     public enum ConversionStatus
     {
+        TargetCurrencyInvalid = -3,
+        SourceCurrencyInvalid = -2,
         RateNotAvailable = -1,
+
         None = 0,
+
         Success = 1
     }
 }

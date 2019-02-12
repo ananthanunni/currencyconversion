@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-12">
-    <mat-card class="example-card">
+    <mat-card class="mat-elevation-z18">
       <mat-card-header>
         <mat-card-title>Conversion Result</mat-card-title>
       </mat-card-header>
@@ -14,13 +14,18 @@
 </div>
 
 <ng-template #conversionData>
-  <h1>
-    <mat-icon color="primary">check_circle</mat-icon>
-  </h1>
   <h1 class="text-right" *ngIf="isSuccess; else errorDisplay">
-    <small>{{currencyLabel}}</small>
+    <small class="text-muted">
+      <span class="text-muted">{{fromCurrencyLabel}}</span>
+      {{formatCurrency(model.request.amount)}}
+      =
+    </small>
+    <small class="text-muted">{{toCurrencyLabel}}</small>
     {{formatCurrency(model.response.amount)}}
   </h1>
+  <div class="text-right">
+    <small class="text-success">*Rate last updated on : <strong>{{model.response.dateUpdated|date}}</strong></small>
+  </div>
 </ng-template>
 
 <ng-template #errorDisplay>

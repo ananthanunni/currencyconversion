@@ -23,7 +23,7 @@ namespace CurrencyConversion.Web.Controllers
         [Route("")]
         public async Task<ActionResult<List<CurrencyDto>>> Get()
         {
-            return Json(await _currencyService.GetCurrencies());
+            return Ok(await _currencyService.GetCurrencies());
         }
     }
 }

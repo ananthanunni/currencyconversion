@@ -20,7 +20,7 @@ namespace CurrencyConversion.Web.Controllers
         [Route("")]
         public async Task<ActionResult<ConversionResponse>> Convert([FromBody]ConversionRequest request)
         {
-            return Json(await _currencyConversionService.ConvertAsync(request));
+            return Ok(await _currencyConversionService.ConvertAsync(request));
         }
     }
 }

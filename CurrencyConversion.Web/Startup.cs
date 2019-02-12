@@ -96,6 +96,7 @@ namespace CurrencyConversion.Web
             // Services
             services.AddTransient<Services.CurrencyManagement.ICurrencyService, Services.CurrencyManagement.CurrencyService>();
             services.AddTransient<Services.CurrencyManagement.ICurrencyConversionService, Services.CurrencyManagement.CurrencyConversionService>();
+            services.AddTransient<Services.CurrencyManagement.IExchangeRatesService, Services.CurrencyManagement.ExchangeRatesService>();
         }
     }
 }

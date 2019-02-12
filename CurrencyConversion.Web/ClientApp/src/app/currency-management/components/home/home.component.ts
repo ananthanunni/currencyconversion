@@ -29,6 +29,14 @@ export class HomeComponent implements OnInit {
     this.reset();
   }
 
+  swapCurrencies() {
+    let leftCurrency = this.fromCurrency.id;
+    let rightCurrency = this.toCurrency.id;
+
+    this.fromCurrency = this.currencyCollection.find(c => c.id === rightCurrency);
+    this.toCurrency = this.currencyCollection.find(c => c.id === leftCurrency);
+  }
+
   convert() {
     let request: ConversionRequest = { amount: this.fromAmount, fromCurrency: this.fromCurrency.id, toCurrency: this.toCurrency.id };
 
@@ -40,10 +48,15 @@ export class HomeComponent implements OnInit {
     this.isCalculating = true;
 
     this.currencyConvertor.convert(this.fromCurrency, this.toCurrency, this.fromAmount)
-      .subscribe(result => {
-        this.saveConversion(request, result);
-        this.isCalculating = false;
-      });
+      .subscribe(
+        result => {
+          this.saveConversion(request, result);
+          this.isCalculating = false;
+        },
+        err => {
+          this.isCalculating = false;
+        }
+      );
   }
 
   private reset() {

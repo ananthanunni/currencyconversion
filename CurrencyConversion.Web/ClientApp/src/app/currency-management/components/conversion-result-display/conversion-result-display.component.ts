@@ -21,9 +21,14 @@ export class ConversionResultDisplayComponent implements OnInit {
   ngOnInit() {
   }
 
-  get currencyLabel() {
+  get toCurrencyLabel() {
     let currency = this.currencyCollection.find(c => c.id === this.model.request.toCurrency);
 
+    return currency.symbol || currency.code || currency.name;
+  }
+
+  get fromCurrencyLabel() {
+    let currency = this.currencyCollection.find(c => c.id === this.model.request.fromCurrency);
     return currency.symbol || currency.code || currency.name;
   }
 
@@ -32,6 +37,9 @@ export class ConversionResultDisplayComponent implements OnInit {
   get errorMessage() {
     switch (this.model.response.status) {
       case ConversionStatus.RateNotAvailable: return "Rate not available";
+
+      case ConversionStatus.SourceCurrencyInvalid: return "Source currency is no longer supported.";
+      case ConversionStatus.TargetCurrencyInvalid: return "Target currency is no longer supported.";
 
       default: return "";
     }

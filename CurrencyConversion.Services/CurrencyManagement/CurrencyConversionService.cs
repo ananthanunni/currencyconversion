@@ -23,11 +23,17 @@ namespace CurrencyConversion.Services.CurrencyManagement
                 .Get(e => (e.From.Id == request.FromCurrency && e.To.Id == request.ToCurrency) || (e.From.Id == request.ToCurrency && e.To.Id == request.FromCurrency))
                 .Include(t => t.From).Include(t => t.To)
                 .OrderByDescending(t => t.Date)
-                .SingleOrDefaultAsync();
+                .FirstOrDefaultAsync();
 
-            // TODO: Ask whether indirect rate resolution can be done. (If Ca->Cb rate is not available is it OK to use Ca->Cx->Cb calculation)
+            // TODO: Clarify whether indirect rate resolution can be done. (If Ca->Cb rate is not available is it OK to use Ca->Cx->Cb calculation)
             if (conversionRate == null)
-                return ConversionResponse.ExchangeRateUnavailable();
+                return ConversionResponse.CreateErrorResponse(ConversionStatus.RateNotAvailable);
+
+            if (conversionRate.From.IsDeleted==true)
+                return ConversionResponse.CreateErrorResponse(ConversionStatus.SourceCurrencyInvalid);
+
+            if (conversionRate.To.IsDeleted == true)
+                return ConversionResponse.CreateErrorResponse(ConversionStatus.TargetCurrencyInvalid);
 
             return new ConversionResponse
             {
