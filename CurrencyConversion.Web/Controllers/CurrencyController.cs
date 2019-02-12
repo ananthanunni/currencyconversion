@@ -22,9 +22,9 @@ namespace CurrencyConversion.Web.Controllers
         // GET: /<controller>/
         [HttpGet]
         [Route("[action]")]
-        public IActionResult Test()
+        public async Task<ActionResult> Get()
         {
-            return Json("a");
+            return Json(await _currencyService.GetCurrencies());
         }
     }
 }

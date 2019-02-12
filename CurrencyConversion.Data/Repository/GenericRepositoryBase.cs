@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace CurrencyConversion.Data.Repository
 {
     public abstract class GenericRepositoryBase<TModel> : IRepository<TModel>
-        where TModel : class,IEntity
+        where TModel : class, IEntity
     {
         private CurrencyDbContext _dbContext;
 
@@ -19,7 +19,7 @@ namespace CurrencyConversion.Data.Repository
             _dbContext = dbContext;
         }
 
-        public IQueryable<TModel> Query()=> _dbSet.AsQueryable();
+        public IQueryable<TModel> Query() => _dbSet.AsQueryable();
 
         public Task<TModel> FindAsync(long id) => _dbSet.FindAsync(id);
 
@@ -31,7 +31,7 @@ namespace CurrencyConversion.Data.Repository
             _dbSet.Remove(entity);
         }
 
-        public IQueryable<TModel> Get(Expression<Func<TModel, bool>> predicate) => _dbSet.Where(predicate);
+        public IQueryable<TModel> Get(Expression<Func<TModel, bool>> predicate=null) => predicate != null ? _dbSet.Where(predicate) : _dbSet.AsQueryable();
 
         public Task<int> SaveChangesAsync() => _dbContext.SaveChangesAsync();
 

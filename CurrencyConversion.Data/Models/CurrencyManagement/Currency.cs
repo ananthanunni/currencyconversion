@@ -1,5 +1,8 @@
-﻿namespace CurrencyConversion.Data.Models.CurrencyManagement
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CurrencyConversion.Data.Models.CurrencyManagement
 {
+    [Table("Currency")]
     public class Currency:BaseEntity, IEntity
     {
         public string Code{ get; set; }

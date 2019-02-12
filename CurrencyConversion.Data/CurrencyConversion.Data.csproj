@@ -2,11 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <AssemblyVersion>2019.2.12.2</AssemblyVersion>
-    <FileVersion>2019.2.12.2</FileVersion>
+    <AssemblyVersion>2019.2.12.4</AssemblyVersion>
+    <FileVersion>2019.2.12.4</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.1" />
   </ItemGroup>
 

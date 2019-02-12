@@ -1,4 +1,5 @@
 ﻿using CurrencyConversion.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace CurrencyConversion.Data.Repository
 
         Task<TModel> FindAsync(long id);
 
-        IQueryable<TModel> Get(Expression<Func<TModel, bool>> predicate);
+        IQueryable<TModel> Get(Expression<Func<TModel, bool>> predicate=null);
 
         void Update(TModel item);
         void Create(TModel item);

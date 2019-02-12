@@ -1,7 +1,9 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CurrencyConversion.Data.Models.CurrencyManagement
 {
+    [Table("ExchangeRate")]
     public class ExchangeRate : BaseEntity, IEntity
     {
         public virtual Currency From { get; set; }
