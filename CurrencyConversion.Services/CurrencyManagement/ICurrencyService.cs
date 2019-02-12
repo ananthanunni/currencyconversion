@@ -6,6 +6,6 @@ namespace CurrencyConversion.Services.CurrencyManagement
 {
     public interface ICurrencyService
     {
-        Task<List<CurrencyDto>> GetCurrencies();
+        Task<List<CurrencyDto>> GetCurrencies();        
     }
 }

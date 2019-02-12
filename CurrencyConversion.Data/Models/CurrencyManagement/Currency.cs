@@ -8,5 +8,6 @@ namespace CurrencyConversion.Data.Models.CurrencyManagement
         public string Code{ get; set; }
         public string Symbol { get; set; }
         public string Name { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 }

@@ -6,9 +6,13 @@ namespace CurrencyConversion.Data.Models.CurrencyManagement
     [Table("ExchangeRate")]
     public class ExchangeRate : BaseEntity, IEntity
     {
-        public virtual Currency From { get; set; }
-        public virtual Currency To { get; set; }
-        public double Rate { get; set; }
+        public decimal Rate { get; set; }
         public DateTime Date;
+
+        public long FromId { get; set; }
+        public virtual Currency From { get; set; }
+
+        public long ToId { get; set; }
+        public virtual Currency To { get; set; }
     }
 }

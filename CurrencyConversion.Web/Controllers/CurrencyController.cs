@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CurrencyConversion.Dto.CurrencyManagement;
 using CurrencyConversion.Services.CurrencyManagement;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CurrencyConversion.Web.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class CurrencyController : Controller
     {
         private ICurrencyService _currencyService;
@@ -21,8 +20,8 @@ namespace CurrencyConversion.Web.Controllers
 
         // GET: /<controller>/
         [HttpGet]
-        [Route("[action]")]
-        public async Task<ActionResult> Get()
+        [Route("")]
+        public async Task<ActionResult<List<CurrencyDto>>> Get()
         {
             return Json(await _currencyService.GetCurrencies());
         }

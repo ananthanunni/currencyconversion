@@ -10,8 +10,8 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
-    <AssemblyVersion>2019.2.12.16</AssemblyVersion>
-    <FileVersion>2019.2.12.16</FileVersion>
+    <AssemblyVersion>2019.2.12.28</AssemblyVersion>
+    <FileVersion>2019.2.12.28</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,6 +31,10 @@
     <ProjectReference Include="..\CurrencyConversion.Core\CurrencyConversion.Core.csproj" />
     <ProjectReference Include="..\CurrencyConversion.Data\CurrencyConversion.Data.csproj" />
     <ProjectReference Include="..\CurrencyConversion.Services\CurrencyConversion.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\app\app-core\services\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
