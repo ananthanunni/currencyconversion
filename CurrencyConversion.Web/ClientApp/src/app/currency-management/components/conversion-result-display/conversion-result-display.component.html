@@ -14,14 +14,14 @@
 </div>
 
 <ng-template #conversionData>
-  <h1 class="text-right" *ngIf="isSuccess; else errorDisplay">
+  <h1 class="text-center" *ngIf="isSuccess; else errorDisplay">
     <small class="text-muted">
-      <span class="text-muted">{{fromCurrencyLabel}}</span>
+      <span>{{fromCurrencyLabel}}</span>
       {{formatCurrency(model.request.amount)}}
       =
     </small>
     <small class="text-muted">{{toCurrencyLabel}}</small>
-    {{formatCurrency(model.response.amount)}}
+    <span class="converted-amount">{{formatCurrency(model.response.amount)}}</span>
   </h1>
   <div class="text-right">
     <small class="text-success">*Rate last updated on : <strong>{{model.response.dateUpdated|date}}</strong></small>

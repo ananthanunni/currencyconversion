@@ -54,7 +54,8 @@ export class HomeComponent implements OnInit {
           this.saveConversion(request, result);
           this.isCalculating = false;
 
-          this.snackBar.open("Amount converted to new currency.", null, { duration: 1800 });
+          if (result.status === ConversionStatus.Success)
+            this.snackBar.open("Amount converted to new currency.", null, { duration: 1800 });
         },
         err => {
           this.isCalculating = false;
@@ -68,7 +69,7 @@ export class HomeComponent implements OnInit {
 
     this.currencyProvider.getCurrencies()
       .subscribe(currencies => {
-        this.currencyCollection = currencies.sort((c1,c2)=>c1.name.localeCompare(c2.name));
+        this.currencyCollection = currencies.sort((c1, c2) => c1.name.localeCompare(c2.name));
 
         if (this.currencyCollection.length > 0)
           this.fromCurrency = this.currencyCollection[0];
