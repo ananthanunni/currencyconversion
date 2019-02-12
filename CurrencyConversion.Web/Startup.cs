@@ -1,10 +1,9 @@
-using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CurrencyConversion.Web
@@ -29,7 +28,8 @@ namespace CurrencyConversion.Web
                 configuration.RootPath = "ClientApp/dist";
             });
 
-            RegisterDbConnection(services);
+            RegisterDataAccess(services);
+            RegisterInjectables(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,10 +71,30 @@ namespace CurrencyConversion.Web
             });
         }
 
-        private void RegisterDbConnection(IServiceCollection services)
+        private void RegisterDataAccess(IServiceCollection services)
         {
+            // IDbConnection
             services.AddTransient<System.Data.IDbConnection>(db => new System.Data.SqlClient.SqlConnection(
                     Configuration.GetConnectionString("CurrencyConnectionString")));
+
+            // DbContext
+            services.AddDbContext<Data.Models.CurrencyDbContext>((s, options) =>
+            {
+                var connectionString = Configuration.GetConnectionString("CurrencyConnectionString");
+                options.UseSqlServer(connectionString);
+            });
+
+            // Repositories
+            services.AddTransient<Data.Repository.CurrencyManagement.ICurrencyRepository, Data.Repository.CurrencyManagement.CurrencyRepository>();
+            services.AddTransient<Data.Repository.CurrencyManagement.IExchangeRateRepository, Data.Repository.CurrencyManagement.ExchangeRateRepository>();
+        }
+
+        private void RegisterInjectables(IServiceCollection services)
+        {
+            services.AddTransient<Core.Logging.ILogger, Core.Logging.ConsoleLogger>();
+
+            // Services
+            services.AddTransient<Services.CurrencyManagement.ICurrencyService, Services.CurrencyManagement.CurrencyService>();
         }
     }
 }

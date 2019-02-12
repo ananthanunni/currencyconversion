@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyVersion>2019.2.12.3</AssemblyVersion>
+    <FileVersion>2019.2.12.3</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CurrencyConversion.Core\CurrencyConversion.Core.csproj" />
+    <ProjectReference Include="..\CurrencyConversion.Data\CurrencyConversion.Data.csproj" />
+  </ItemGroup>
+
+</Project>
