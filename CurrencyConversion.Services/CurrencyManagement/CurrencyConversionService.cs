@@ -29,11 +29,13 @@ namespace CurrencyConversion.Services.CurrencyManagement
             if (conversionRate == null)
                 return ConversionResponse.CreateErrorResponse(ConversionStatus.RateNotAvailable);
 
+            var isStraightRate = request.FromCurrency == conversionRate.From.Id;
+
             if (conversionRate.From.IsDeleted==true)
-                return ConversionResponse.CreateErrorResponse(ConversionStatus.SourceCurrencyInvalid);
+                return ConversionResponse.CreateErrorResponse(isStraightRate?ConversionStatus.SourceCurrencyInvalid:ConversionStatus.TargetCurrencyInvalid);
 
             if (conversionRate.To.IsDeleted == true)
-                return ConversionResponse.CreateErrorResponse(ConversionStatus.TargetCurrencyInvalid);
+                return ConversionResponse.CreateErrorResponse(isStraightRate?ConversionStatus.TargetCurrencyInvalid:ConversionStatus.SourceCurrencyInvalid);
 
             return new ConversionResponse
             {

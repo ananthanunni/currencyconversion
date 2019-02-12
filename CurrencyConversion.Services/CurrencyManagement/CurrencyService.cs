@@ -20,6 +20,6 @@ namespace CurrencyConversion.Services.CurrencyManagement
             _exchangeRateRepository = exchangeRateRepository;
         }
 
-        public Task<List<CurrencyDto>> GetCurrencies() => _currencyRepo.Get(c => c.IsDeleted != true)?.Select(c => ToDto(c))?.ToListAsync();        
+        public Task<List<CurrencyDto>> GetCurrencies() => _currencyRepo.Get()?.Select(c => ToDto(c))?.ToListAsync();        
     }
 }

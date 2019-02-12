@@ -4,6 +4,7 @@ import { Currency } from '../../models/Currency';
 import { CurrencyConversionProviderService } from '../../services/currency-conversion-provider.service';
 import { ConversionRequest } from '../../models/ConversionRequest';
 import { ConversionResponse, ConversionStatus } from '../../models/ConversionResponse';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'currency-management-home',
@@ -23,7 +24,7 @@ export class HomeComponent implements OnInit {
 
   currentConversion: Conversion = null;
 
-  constructor(private currencyProvider: CurrencyProviderService, private currencyConvertor: CurrencyConversionProviderService) { }
+  constructor(private currencyProvider: CurrencyProviderService, private currencyConvertor: CurrencyConversionProviderService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.reset();
@@ -52,9 +53,12 @@ export class HomeComponent implements OnInit {
         result => {
           this.saveConversion(request, result);
           this.isCalculating = false;
+
+          this.snackBar.open("Amount converted to new currency.", null, { duration: 1800 });
         },
         err => {
           this.isCalculating = false;
+          this.snackBar.open("Conversion could not be completed.");
         }
       );
   }
@@ -64,7 +68,7 @@ export class HomeComponent implements OnInit {
 
     this.currencyProvider.getCurrencies()
       .subscribe(currencies => {
-        this.currencyCollection = currencies;
+        this.currencyCollection = currencies.sort((c1,c2)=>c1.name.localeCompare(c2.name));
 
         if (this.currencyCollection.length > 0)
           this.fromCurrency = this.currencyCollection[0];

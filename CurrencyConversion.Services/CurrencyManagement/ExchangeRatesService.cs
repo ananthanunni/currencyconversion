@@ -57,7 +57,7 @@ namespace CurrencyConversion.Services.CurrencyManagement
                 _currencyRepository.Create(new Currency
                 {
                     Code = c,
-                    Name = null,
+                    Name = c,
                     Symbol = null
                 });
         }

@@ -2,6 +2,9 @@
 
 namespace CurrencyConversion.Core.Exceptions
 {
+    /// <summary>
+    /// All custom exception types being thrown from the system must be derived from this type.
+    /// </summary>
     public class CoreException : Exception
     {
         public DateTime Timestamp { get; }
