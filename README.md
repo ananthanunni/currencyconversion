@@ -1,4 +1,4 @@
-﻿# Currency Converter
+# Currency Converter
 Currency Converter is an SPA app which uses ASP.NET MVC Core 2.2 as backend and Angular 7 at front end.
 ## Project Structure
 * CurrencyConversion.Core   : Contains core functionalities like logging and core Exceptions
